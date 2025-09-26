@@ -1,1 +1,1463 @@
-# Bday-Gift
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Lovely and Beautiful Khushi 💖</title>
+    <style>
+        /* 
+        ═══════════════════════════════════════════════════════════════════
+        💖 ROMANTIC SURPRISE WEBSITE FOR KHUSHI
+        ═══════════════════════════════════════════════════════════════════
+        
+        🎨 EASY CUSTOMIZATION:
+        - Change STEPS array for different poems/quotes
+        - Modify NO_QUOTES for different reactions
+        - Update FINAL_QUOTE for the ending message
+        - Change SONG_URL to your preferred YouTube link
+        - Adjust color variables below for different themes
+        
+        ═══════════════════════════════════════════════════════════════════
+        */
+
+        /* Color Variables - Easy Theme Customization */
+        :root {
+            --primary-pink: #ff6b9d;
+            --soft-pink: #ffc0cb;
+            --gold: #ffd700;
+            --purple: #9b59b6;
+            --lavender: #e6e6fa;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --shadow: 0 15px 35px rgba(255, 107, 157, 0.3);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --border-radius: 25px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            cursor: default;
+        }
+
+        /* Animated Background with Moving Gradients */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: var(--gradient-1);
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: var(--gradient-1); }
+            25% { background: var(--gradient-2); }
+            50% { background: var(--gradient-3); }
+            75% { background: var(--gradient-2); }
+        }
+
+        /* Floating Bokeh Lights Background */
+        .bokeh-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bokeh-light {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            animation: floatBokeh 15s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatBokeh {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+                transform: translateY(90vh) translateX(0) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+                transform: translateY(-10vh) translateX(0) scale(1);
+            }
+            100% {
+                transform: translateY(-20vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Cover Page Styles */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 2rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); }
+            to { text-shadow: 0 5px 25px rgba(255, 255, 255, 0.6); }
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            color: var(--lavender);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .start-button {
+            background: linear-gradient(45deg, var(--primary-pink), var(--purple));
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .start-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        .start-button:hover::before {
+            left: 100%;
+        }
+
+        /* Steps Container */
+        .steps-container {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step {
+            display: none;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step.active {
+            display: flex;
+        }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .step-text {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            color: var(--white);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            min-height: 3em;
+            margin-bottom: 2rem;
+        }
+
+        .step-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, var(--soft-pink), var(--gold));
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(255, 192, 203, 0.3);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 192, 203, 0.4);
+        }
+
+        /* Love Question Game Styles */
+        .love-question {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .question-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(25px);
+            border-radius: var(--border-radius);
+            padding: 4rem 3rem;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .question-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .reaction-text {
+            font-size: 1.4rem;
+            color: var(--lavender);
+            margin: 1.5rem 0;
+            min-height: 2em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .love-button {
+            padding: 1.2rem 3rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            min-width: 150px;
+        }
+
+        .yes-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+        }
+
+        .yes-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(46, 204, 113, 0.4);
+        }
+
+        .no-button {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .no-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
+        }
+
+        .no-button.dodging {
+            animation: dodgeMove 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes dodgeMove {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.8) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Final Celebration */
+        .celebration {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .celebration-content {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px);
+            border-radius: var(--border-radius);
+            padding: 4rem 3rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(255, 107, 157, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: celebrationGlow 3s ease-in-out infinite;
+        }
+
+        .celebration-text {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.5;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes celebrationGlow {
+            0%, 100% { box-shadow: 0 25px 50px rgba(255, 107, 157, 0.4); }
+            50% { box-shadow: 0 30px 60px rgba(255, 107, 157, 0.6); }
+        }
+
+        /* Floating Hearts Animation */
+        .floating-heart {
+            position: fixed;
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatHeart 3s ease-out forwards;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-150px) scale(1.5) rotate(360deg);
+            }
+        }
+
+        /* Confetti Canvas */
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Secret Message */
+        .secret-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 1001;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cover-title {
+                font-size: 2.5rem;
+            }
+            
+            .cover-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .step-text {
+                font-size: 1.4rem;
+            }
+            
+            .question-text {
+                font-size: 2rem;
+            }
+            
+            .celebration-text {
+                font-size: 1.8rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .love-button {
+                padding: 1rem 2rem;
+                font-size: 1.2rem;
+            }
+            
+            .step-content,
+            .question-container,
+            .celebration-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cover-title {
+                font-size: 2rem;
+            }
+            
+            .step-text {
+                font-size: 1.2rem;
+            }
+            
+            .question-text {
+                font-size: 1.6rem;
+            }
+            
+            .celebration-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background"></div>
+    
+    <!-- Floating Bokeh Lights -->
+    <div class="bokeh-container" id="bokeh-container"></div>
+
+    <!-- Cover Page -->
+    <div class="cover-page" id="cover-page">
+        <h1 class="cover-title">Hey sweetie 💖</h1>
+        <p class="cover-subtitle">Ready for a surprise?</p>
+        <button class="start-button" onclick="startSurprise()">
+            ✨ Yes, I'm Ready! ✨
+        </button>
+    </div>
+
+    <!-- Steps Container -->
+    <div class="steps-container" id="steps-container">
+        <!-- Steps will be dynamically generated -->
+    </div>
+
+    <!-- Love Question Game -->
+    <div class="love-question" id="love-question">
+        <div class="question-container">
+            <div class="question-text">Sweetie… do you love me? 💕</div>
+            <div class="reaction-text" id="reaction-text"></div>
+            <div class="buttons-container" id="buttons-container">
+                <button class="love-button yes-button" onclick="sayYes()">
+                    💖 Yes 💖
+                </button>
+                <button class="love-button no-button" id="no-button" onclick="sayNo()">
+                    💔 No 💔
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Screen -->
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <div class="celebration-text" id="celebration-text"></div>
+        </div>
+    </div>
+
+    <!-- Secret Message -->
+    <div class="secret-message" id="secret-message">
+        Khushi = My Happiness ❤️
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+
+    <!-- Hidden YouTube Player -->
+    <div id="youtube-player" style="display: none;"></div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════
+        // 💖 CONFIGURATION - CUSTOMIZE YOUR ROMANTIC SURPRISE HERE!
+        // ═══════════════════════════════════════════════════════════════════
+
+        const CONFIG = {
+            // 🎵 YouTube Song URL - Only this song will play
+            SONG_URL: 'https://youtu.be/czYSuwHvf_I',
+            
+            // 💌 Romantic Steps - Hinglish quotes and poems (5-6 steps)
+            STEPS: [
+                {
+                    text: "Yaad hai jab humne pehli baar baat ki thi… \nAur Chowmein kaisa hai? Mai accha ji aap btao!! 😂😂😂"
+                },
+                {
+                    text: "From that day and each succeeding day, Tere bina main incomplete hun...\nTu hai toh sab kuch perfect lagta hai, sweetie 💖🌙"
+                },
+                {
+                    text: "Everytime I see my wallpaper, my wallet, It brings a smile to my face, and tells me that how special you are my sweetie \n Because I also keep your photo over there 🌅💕"
+                },
+                {
+                    text: "First time we met, 27th nov it was! You came after couple of hours of waiting but yk what made me wait!?...\nthe beatuiful memory that should be kept that waits ahead everything 💭✨"
+                },
+                {
+                    text: "Sweetie, You're not just my gf...\nTu meri best friend, mera everything hai, bevause you are the only one jisko mai sab batata hu 👫💖"
+                },
+                {
+                    text: "Main tujhse kitna pyaar karta hun...\nYe words mein express nahi kar sakta, sweetie 💕🌟"
+                }
+            ],
+
+            // 😅 Flirty "No" Reactions - When she clicks "No"
+            NO_QUOTES: [
+                "Arey sweetie, sach me? 🥺",
+                "Kya hai? Aisa mat karo yarra 😢",
+                "No mat bolo… warna rona aa jaayega 😭",
+                "Sweetie, please ek baar soch lo 🙈",
+                "Mera dil toot gaya… 💔😢",
+                "Acha theek hai, main wait karunga 🥺💕",
+                "Sweetie, tu kitni cute ho jab no kehti hai 😘",
+                "Pakka no? Last chance deti hun 🤔💭",
+                "Ab bas sweetie… zyada torture mat karo 😅💖"
+            ],
+
+            // 💖 Final Celebration Quote
+            FINAL_QUOTE: "Sweetie, jab tu 'Yes' kehti hai, duniya ki saari khushiyaan mere paas aa jaati hain. \n Wishing you a very happy and amazing year ahead, Happy Birthday my love!💖✨\n\nTu meri life ka sabse beautiful part hai... I love you so much! 🌟💕"
+        };
+
+        // ═══════════════════════════════════════════════════════════════════
+        // 🚀 MAIN APPLICATION CODE
+        // ═══════════════════════════════════════════════════════════════════
+
+        let currentStep = 0;
+        let noClickCount = 0;
+        let typewriterActive = false;
+        let youtubePlayer = null;
+
+        // Initialize the application
+        function init() {
+            createBokehLights();
+            setupYouTubePlayer();
+            setupKeyboardShortcuts();
+            generateSteps();
+            
+            // Add click effect to entire body
+            document.body.addEventListener('click', createFloatingHeart);
+            
+            console.log('💖 Romantic Surprise Website Loaded for Khushi! 💖');
+        }
+
+        // Create floating bokeh lights background
+        function createBokehLights() {
+            const bokehContainer = document.getElementById('bokeh-container');
+            const lightCount = 15;
+
+            for (let i = 0; i < lightCount; i++) {
+                setTimeout(() => {
+                    const light = document.createElement('div');
+                    light.className = 'bokeh-light';
+                    
+                    // Random size between 10px and 40px
+                    const size = Math.random() * 30 + 10;
+                    light.style.width = `${size}px`;
+                    light.style.height = `${size}px`;
+                    
+                    // Random horizontal position
+                    light.style.left = `${Math.random() * 100}%`;
+                    
+                    // Random animation duration between 10-20 seconds
+                    light.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                    
+                    // Random delay
+                    light.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    bokehContainer.appendChild(light);
+                    
+                    // Remove and recreate light when animation ends
+                    light.addEventListener('animationend', () => {
+                        light.remove();
+                        // Create new light
+                        setTimeout(() => createBokehLights(), Math.random() * 2000);
+                    });
+                }, i * 200);
+            }
+        }
+
+        // Setup YouTube Player (Web API)
+        function setupYouTubePlayer() {
+            // Extract video ID from URL
+            const videoId = extractYouTubeID(CONFIG.SONG_URL);
+            
+            // Create iframe for YouTube player
+            const playerContainer = document.getElementById('youtube-player');
+            playerContainer.innerHTML = `
+                <iframe id="youtube-iframe" 
+                        width="1" 
+                        height="1" 
+                        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1" 
+                        frameborder="0" 
+                        allow="autoplay; encrypted-media"
+                        style="opacity: 0; position: absolute; top: -1000px;">
+                </iframe>
+            `;
+        }
+
+        // Extract YouTube Video ID from URL
+        function extractYouTubeID(url) {
+            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[7].length === 11) ? match[7] : null;
+        }
+
+        // Generate steps dynamically
+        function generateSteps() {
+            const stepsContainer = document.getElementById('steps-container');
+            
+            CONFIG.STEPS.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step';
+                stepDiv.id = `step-${index}`;
+                
+                stepDiv.innerHTML = `
+                    <div class="step-content">
+                        <div class="step-text" id="step-text-${index}"></div>
+                        <div class="step-navigation">
+                            ${index > 0 ? `<button class="nav-button" onclick="previousStep()">← Previous</button>` : ''}
+                            ${index < CONFIG.STEPS.length - 1 ? `<button class="nav-button" onclick="nextStep()">Next →</button>` : `<button class="nav-button" onclick="startLoveGame()">💕 Continue 💕</button>`}
+                        </div>
+                    </div>
+                `;
+                
+                stepsContainer.appendChild(stepDiv);
+            });
+        }
+
+        // Start the romantic surprise
+        function startSurprise() {
+            // Hide cover and show first step
+            document.getElementById('cover-page').style.display = 'none';
+            document.getElementById('steps-container').style.display = 'block';
+            
+            // Start music (user interaction allows autoplay)
+            playBackgroundMusic();
+            
+            // Show first step
+            showStep(0);
+            
+            // Create celebration effect
+            createFloatingHeart({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
+        }
+
+        // Play background music
+        function playBackgroundMusic() {
+            try {
+                const iframe = document.getElementById('youtube-iframe');
+                if (iframe) {
+                    iframe.style.opacity = '0';
+                    iframe.style.position = 'absolute';
+                    iframe.style.top = '-1000px';
+                    iframe.style.left = '-1000px';
+                }
+            } catch (error) {
+                console.log('Music playback requires user interaction');
+            }
+        }
+
+        // Show specific step with typewriter effect
+        function showStep(stepIndex) {
+            // Hide all steps
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => {
+                step.classList.remove('active');
+                step.style.display = 'none';
+            });
+            
+            // Show current step
+            const currentStepEl = document.getElementById(`step-${stepIndex}`);
+            currentStepEl.style.display = 'flex';
+            
+            setTimeout(() => {
+                currentStepEl.classList.add('active');
+                
+                // Start typewriter effect for this step
+                const textElement = document.getElementById(`step-text-${stepIndex}`);
+                const text = CONFIG.STEPS[stepIndex].text;
+                
+                typewriterEffect(textElement, text, 50);
+            }, 100);
+            
+            currentStep = stepIndex;
+        }
+
+        // Typewriter effect
+        function typewriterEffect(element, text, speed = 50) {
+            element.innerHTML = '';
+            typewriterActive = true;
+            let i = 0;
+            
+            function type() {
+                if (i < text.length && typewriterActive) {
+                    if (text.charAt(i) === '\n') {
+                        element.innerHTML += '<br>';
+                    } else {
+                        element.innerHTML += text.charAt(i);
+                    }
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    typewriterActive = false;
+                }
+            }
+            
+            type();
+        }
+
+        // Navigation functions
+        function nextStep() {
+            if (currentStep < CONFIG.STEPS.length - 1) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        // Start the love question game
+        function startLoveGame() {
+            document.getElementById('steps-container').style.display = 'none';
+            document.getElementById('love-question').style.display = 'flex';
+            
+            // Reset no click count
+            noClickCount = 0;
+            
+            // Reset reaction text
+            document.getElementById('reaction-text').innerHTML = '';
+            
+            // Reset no button
+            const noButton = document.getElementById('no-button');
+            noButton.style.display = 'block';
+            noButton.style.position = 'relative';
+            noButton.style.transform = 'none';
+            
+            // Create floating hearts effect
+            createMultipleFloatingHearts();
+        }
+
+        // Handle "Yes" button click
+        function sayYes() {
+            // Hide love question
+            document.getElementById('love-question').style.display = 'none';
+            
+            // Show celebration
+            document.getElementById('celebration').style.display = 'flex';
+            
+            // Start typewriter for final quote
+            const celebrationText = document.getElementById('celebration-text');
+            typewriterEffect(celebrationText, CONFIG.FINAL_QUOTE, 40);
+            
+            // Trigger massive celebration
+            triggerMassiveCelebration();
+            
+            // Create continuous floating hearts
+            setInterval(createMultipleFloatingHearts, 1000);
+        }
+
+        // Handle "No" button click with dodging behavior
+        function sayNo() {
+            const noButton = document.getElementById('no-button');
+            const reactionText = document.getElementById('reaction-text');
+            
+            noClickCount++;
+            
+            // Show reaction quote
+            if (noClickCount <= CONFIG.NO_QUOTES.length) {
+                const quote = CONFIG.NO_QUOTES[noClickCount - 1];
+                reactionText.innerHTML = quote;
+                
+                // Typewriter effect for reaction
+                typewriterEffect(reactionText, quote, 30);
+            }
+            
+            // Make No button dodge (move to random position)
+            if (noClickCount < 9) {
+                dodgeNoButton();
+            } else {
+                // After 9th click, hide No button and show final message
+                noButton.style.display = 'none';
+                reactionText.innerHTML = "Ab bas sweetie… sirf ek haan ka intezaar hai ❤️";
+                typewriterEffect(reactionText, "Ab bas sweetie… sirf ek haan ka intezaar hai ❤️", 40);
+            }
+            
+            // Add dodging animation class
+            noButton.classList.add('dodging');
+            setTimeout(() => {
+                noButton.classList.remove('dodging');
+            }, 500);
+        }
+
+        // Make No button dodge to random position
+        function dodgeNoButton() {
+            const noButton = document.getElementById('no-button');
+            const container = document.getElementById('buttons-container');
+            
+            // Get container dimensions
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            
+            // Calculate random position within container
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+            
+            const randomX = Math.random() * maxX - maxX / 2;
+            const randomY = Math.random() * maxY - maxY / 2;
+            
+            // Apply random transform
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            
+            // On mobile, use different positions
+            if (window.innerWidth <= 768) {
+                const positions = [
+                    'translate(-100px, -50px)',
+                    'translate(100px, -50px)',
+                    'translate(-50px, -100px)',
+                    'translate(50px, -100px)',
+                    'translate(-80px, 50px)',
+                    'translate(80px, 50px)'
+                ];
+                noButton.style.transform = positions[Math.floor(Math.random() * positions.length)];
+            }
+        }
+
+        // Trigger massive celebration with confetti and effects
+        function triggerMassiveCelebration() {
+            // Confetti explosion
+            createConfetti();
+            
+            // Multiple confetti bursts
+            setTimeout(() => createConfetti(), 500);
+            setTimeout(() => createConfetti(), 1000);
+            setTimeout(() => createConfetti(), 1500);
+            
+            // Change background to celebration mode
+            document.querySelector('.animated-background').style.animation = 'celebrationGradient 2s ease-in-out infinite';
+            
+            // Add celebration gradient animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes celebrationGradient {
+                    0% { background: linear-gradient(135deg, #ff6b9d 0%, #ffd700 100%); }
+                    25% { background: linear-gradient(135deg, #9b59b6 0%, #ff6b9d 100%); }
+                    50% { background: linear-gradient(135deg, #ffd700 0%, #9b59b6 100%); }
+                    75% { background: linear-gradient(135deg, #ff6b9d 0%, #667eea 100%); }
+                    100% { background: linear-gradient(135deg, #667eea 0%, #ffd700 100%); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const confettiPieces = [];
+            const colors = ['#ff6b9d', '#ffd700', '#9b59b6', '#2ecc71', '#e74c3c', '#3498db'];
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            // Create 100 confetti pieces
+            for (let i = 0; i < 100; i++) {
+                confettiPieces.push({
+                    x: Math.random() * canvas.width,
+                    y: -10,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: Math.random() * 6 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    shape: shapes[Math.floor(Math.random() * shapes.length)],
+                    size: Math.random() * 8 + 4,
+                    rotation: 0,
+                    rotationSpeed: (Math.random() - 0.5) * 15,
+                    gravity: 0.5,
+                    bounce: 0.7
+                });
+            }
+            
+            function animateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                confettiPieces.forEach((piece, index) => {
+                    // Update position
+                    piece.x += piece.vx;
+                    piece.y += piece.vy;
+                    piece.vy += piece.gravity;
+                    piece.rotation += piece.rotationSpeed;
+                    
+                    // Bounce off sides
+                    if (piece.x <= 0 || piece.x >= canvas.width) {
+                        piece.vx *= -piece.bounce;
+                        piece.x = Math.max(0, Math.min(canvas.width, piece.x));
+                    }
+                    
+                    // Draw piece
+                    ctx.save();
+                    ctx.translate(piece.x, piece.y);
+                    ctx.rotate(piece.rotation * Math.PI / 180);
+                    ctx.fillStyle = piece.color;
+                    
+                    switch (piece.shape) {
+                        case 'circle':
+                            ctx.beginPath();
+                            ctx.arc(0, 0, piece.size / 2, 0, Math.PI * 2);
+                            ctx.fill();
+                            break;
+                        case 'square':
+                            ctx.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
+                            break;
+                        case 'triangle':
+                            ctx.beginPath();
+                            ctx.moveTo(0, -piece.size / 2);
+                            ctx.lineTo(-piece.size / 2, piece.size / 2);
+                            ctx.lineTo(piece.size / 2, piece.size / 2);
+                            ctx.closePath();
+                            ctx.fill();
+                            break;
+                    }
+                    ctx.restore();
+                    
+                    // Remove pieces that are off screen and moving away
+                    if (piece.y > canvas.height + 50 && piece.vy > 0) {
+                        confettiPieces.splice(index, 1);
+                    }
+                });
+                
+                if (confettiPieces.length > 0) {
+                    requestAnimationFrame(animateConfetti);
+                }
+            }
+            
+            animateConfetti();
+        }
+
+        // Create floating heart effect on click
+        function createFloatingHeart(event) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            
+            // Random heart emoji
+            const hearts = ['💖', '💕', '💗', '💙', '💜', '❤️', '🧡', '💛', '💚'];
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            // Position at click location
+            heart.style.left = (event.clientX - 10) + 'px';
+            heart.style.top = (event.clientY - 10) + 'px';
+            
+            document.body.appendChild(heart);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 3000);
+        }
+
+        // Create multiple floating hearts
+        function createMultipleFloatingHearts() {
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const event = {
+                        clientX: Math.random() * window.innerWidth,
+                        clientY: Math.random() * window.innerHeight
+                    };
+                    createFloatingHeart(event);
+                }, i * 200);
+            }
+        }
+
+        // Setup keyboard shortcuts
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (event) => {
+                switch (event.key.toLowerCase()) {
+                    case 'k':
+                        showSecretMessage();
+                        break;
+                    case 'enter':
+                    case ' ':
+                        if (document.getElementById('cover-page').style.display !== 'none') {
+                            event.preventDefault();
+                            startSurprise();
+                        }
+                        break;
+                    case 'arrowright':
+                        if (document.getElementById('steps-container').style.display !== 'none') {
+                            event.preventDefault();
+                            nextStep();
+                        }
+                        break;
+                    case 'arrowleft':
+                        if (document.getElementById('steps-container').style.display !== 'none') {
+                            event.preventDefault();
+                            previousStep();
+                        }
+                        break;
+                    case 'y':
+                        if (document.getElementById('love-question').style.display !== 'none') {
+                            sayYes();
+                        }
+                        break;
+                    case 'n':
+                        if (document.getElementById('love-question').style.display !== 'none') {
+                            sayNo();
+                        }
+                        break;
+                }
+            });
+        }
+
+        // Show secret message
+        function showSecretMessage() {
+            const secretMessage = document.getElementById('secret-message');
+            secretMessage.style.display = 'block';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                secretMessage.style.display = 'none';
+            }, 3000);
+            
+            // Create special heart effect
+            createMultipleFloatingHearts();
+        }
+
+        // Mobile touch optimizations
+        function setupMobileOptimizations() {
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Optimize for mobile performance
+            if (window.innerWidth <= 768) {
+                // Reduce bokeh lights on mobile
+                const bokehLights = document.querySelectorAll('.bokeh-light');
+                bokehLights.forEach((light, index) => {
+                    if (index % 2 !== 0) {
+                        light.remove();
+                    }
+                });
+            }
+        }
+
+        // Performance optimization
+        function optimizePerformance() {
+            // Reduce animations on slower devices
+            const isSlowDevice = navigator.hardwareConcurrency <= 4;
+            
+            if (isSlowDevice) {
+                document.documentElement.style.setProperty('--transition', 'all 0.2s ease');
+                
+                // Reduce confetti count
+                const originalCreateConfetti = createConfetti;
+                createConfetti = function() {
+                    // Reduce confetti pieces for slower devices
+                    const canvas = document.getElementById('confetti-canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    
+                    const confettiPieces = [];
+                    const colors = ['#ff6b9d', '#ffd700', '#9b59b6'];
+                    
+                    // Only 30 pieces instead of 100
+                    for (let i = 0; i < 30; i++) {
+                        confettiPieces.push({
+                            x: Math.random() * canvas.width,
+                            y: -10,
+                            vx: (Math.random() - 0.5) * 6,
+                            vy: Math.random() * 4 + 2,
+                            color: colors[Math.floor(Math.random() * colors.length)],
+                            size: Math.random() * 6 + 3,
+                            rotation: 0,
+                            rotationSpeed: (Math.random() - 0.5) * 10,
+                            gravity: 0.3
+                        });
+                    }
+                    
+                    function animateConfetti() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        confettiPieces.forEach((piece, index) => {
+                            piece.x += piece.vx;
+                            piece.y += piece.vy;
+                            piece.vy += piece.gravity;
+                            piece.rotation += piece.rotationSpeed;
+                            
+                            ctx.save();
+                            ctx.translate(piece.x, piece.y);
+                            ctx.rotate(piece.rotation * Math.PI / 180);
+                            ctx.fillStyle = piece.color;
+                            ctx.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
+                            ctx.restore();
+                            
+                            if (piece.y > canvas.height + 50) {
+                                confettiPieces.splice(index, 1);
+                            }
+                        });
+                        
+                        if (confettiPieces.length > 0) {
+                            requestAnimationFrame(animateConfetti);
+                        }
+                    }
+                    
+                    animateConfetti();
+                };
+            }
+        }
+
+        // Error handling
+        function setupErrorHandling() {
+            window.addEventListener('error', (event) => {
+                console.error('Error occurred:', event.error);
+                
+                // Create fallback message
+                const fallbackDiv = document.createElement('div');
+                fallbackDiv.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(255, 255, 255, 0.9);
+                    padding: 2rem;
+                    border-radius: 15px;
+                    text-align: center;
+                    z-index: 10000;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                `;
+                
+                fallbackDiv.innerHTML = `
+                    <h3 style="color: #e74c3c; margin-bottom: 1rem;">Oops! 😅</h3>
+                    <p style="color: #2c3e50;">Something went wrong, but my love for you is still perfect! 💕</p>
+                    <button onclick="location.reload()" style="
+                        background: linear-gradient(45deg, #ff6b9d, #9b59b6);
+                        color: white;
+                        border: none;
+                        padding: 0.8rem 2rem;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        margin-top: 1rem;
+                        font-weight: 600;
+                    ">Try Again ✨</button>
+                `;
+                
+                document.body.appendChild(fallbackDiv);
+            });
+        }
+
+        // Accessibility improvements
+        function setupAccessibility() {
+            // Add ARIA labels
+            document.querySelector('.start-button').setAttribute('aria-label', 'Start the romantic surprise');
+            document.querySelector('.yes-button').setAttribute('aria-label', 'Say yes to love');
+            document.querySelector('.no-button').setAttribute('aria-label', 'Say no (but you will change your mind)');
+            
+            // Add keyboard navigation hints
+            const keyboardHints = document.createElement('div');
+            keyboardHints.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                font-size: 0.9rem;
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                display: none;
+            `;
+            
+            keyboardHints.innerHTML = `
+                <div>⌨️ Keyboard Shortcuts:</div>
+                <div>• K - Secret message</div>
+                <div>• Enter/Space - Continue</div>
+                <div>• Arrow keys - Navigate</div>
+                <div>• Y - Yes, N - No</div>
+            `;
+            
+            document.body.appendChild(keyboardHints);
+            
+            // Show hints on focus
+            document.addEventListener('keydown', () => {
+                keyboardHints.style.display = 'block';
+                setTimeout(() => {
+                    keyboardHints.style.display = 'none';
+                }, 5000);
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            setupMobileOptimizations();
+            optimizePerformance();
+            setupErrorHandling();
+            setupAccessibility();
+            
+            // Preload canvas context
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            console.log('💖 Romantic Website Ready for Khushi! 💖');
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Prevent right-click context menu for cleaner experience
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Add some extra magical touches
+        function addMagicalTouches() {
+            // Random sparkle effects
+            setInterval(() => {
+                if (Math.random() < 0.3) {
+                    createSparkleEffect();
+                }
+            }, 2000);
+        }
+
+        // Create sparkle effect
+        function createSparkleEffect() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.cssText = `
+                position: fixed;
+                font-size: 1.5rem;
+                pointer-events: none;
+                z-index: 999;
+                animation: sparkleFloat 3s ease-out forwards;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${Math.random() * window.innerHeight}px;
+            `;
+            
+            const sparkleStyle = document.createElement('style');
+            sparkleStyle.textContent = `
+                @keyframes sparkleFloat {
+                    0% { opacity: 0; transform: scale(0) rotate(0deg); }
+                    50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+                    100% { opacity: 0; transform: scale(0) rotate(360deg); }
+                }
+            `;
+            
+            if (!document.head.querySelector('[data-sparkle-style]')) {
+                sparkleStyle.setAttribute('data-sparkle-style', 'true');
+                document.head.appendChild(sparkleStyle);
+            }
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 3000);
+        }
+
+        // Start magical touches after initialization
+        setTimeout(addMagicalTouches, 2000);
+
+    </script>
+
+    <!-- 
+    ═══════════════════════════════════════════════════════════════════
+    💖 ROMANTIC SURPRISE WEBSITE - DEVELOPER NOTES
+    ═══════════════════════════════════════════════════════════════════
+    
+    🎯 FEATURES INCLUDED:
+    ✅ Dreamy animated background with moving gradients
+    ✅ Floating bokeh lights for magical ambiance
+    ✅ Cover page with warm greeting
+    ✅ 6 romantic steps with typewriter effects
+    ✅ Interactive "Do you love me?" game
+    ✅ Dodging "No" button with 9 flirty reactions
+    ✅ Massive celebration on "Yes" with confetti
+    ✅ YouTube music integration (autoplay after user interaction)
+    ✅ Floating hearts on every click
+    ✅ Secret message with "K" key
+    ✅ Mobile responsive design
+    ✅ Keyboard shortcuts
+    ✅ Performance optimizations
+    ✅ Error handling
+    ✅ Accessibility features
+    
+    🎨 CUSTOMIZATION OPTIONS:
+    • Change STEPS array for different poems/quotes
+    • Modify NO_QUOTES for different reactions
+    • Update FINAL_QUOTE for ending message  
+    • Change SONG_URL to different YouTube link
+    • Adjust CSS variables for different colors
+    • Modify animation timings and effects
+    
+    🎵 MUSIC INTEGRATION:
+    • Uses YouTube embed with autoplay
+    • Starts after user clicks "Start" button
+    • Loops continuously in background
+    • Hidden iframe player
+    
+    ⌨️ KEYBOARD SHORTCUTS:
+    • K - Show secret message
+    • Enter/Space - Start or continue
+    • Arrow keys - Navigate steps
+    • Y - Say Yes, N - Say No
+    
+    📱 MOBILE FEATURES:
+    • Touch-optimized interactions
+    • Responsive design for all screen sizes
+    • Performance optimized for mobile devices
+    • Smooth animations on touch
+    
+    💝 EMOTIONAL JOURNEY:
+    1. Warm greeting and anticipation
+    2. 6 romantic Hinglish quotes with typewriter effect
+    3. Playful "Do you love me?" game
+    4. Dodging No button creates fun interaction
+    5. Beautiful celebration on Yes response
+    6. Continuous magical effects throughout
+    
+    🚀 DEPLOYMENT:
+    Save as index.html and upload to any web hosting service
+    Works on GitHub Pages, Netlify, Vercel, etc.
+    No external dependencies - completely self-contained
+    
+    Made with love for Khushi 💖✨
+    -->
+</body>
+</html>

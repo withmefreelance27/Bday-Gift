@@ -6,18 +6,17 @@
     <title>For My Lovely and Beautiful Khushi 💖</title>
     <style>
         /* 
-        ═══════════════════════════════════════════════════════════════════
+        ══════════════════════════════════════════════════════════════════════════════════════
         💖 ROMANTIC SURPRISE WEBSITE FOR KHUSHI
-        ═══════════════════════════════════════════════════════════════════
+        ══════════════════════════════════════════════════════════════════════════════════════
         
         🎨 EASY CUSTOMIZATION:
         - Change STEPS array for different poems/quotes
         - Modify NO_QUOTES for different reactions
         - Update FINAL_QUOTE for the ending message
-        - Change SONG_URL to your preferred YouTube link
         - Adjust color variables below for different themes
         
-        ═══════════════════════════════════════════════════════════════════
+        ══════════════════════════════════════════════════════════════════════════════════════
         */
 
         /* Color Variables - Easy Theme Customization */
@@ -585,18 +584,12 @@
     <!-- Confetti Canvas -->
     <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
 
-    <!-- Hidden YouTube Player -->
-    <div id="youtube-player" style="display: none;"></div>
-
     <script>
-        // ═══════════════════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════════════════════════════════════
         // 💖 CONFIGURATION - CUSTOMIZE YOUR ROMANTIC SURPRISE HERE!
-        // ═══════════════════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════════════════════════════════════
 
         const CONFIG = {
-            // 🎵 YouTube Song URL - Only this song will play
-            SONG_URL: 'https://youtu.be/czYSuwHvf_I',
-            
             // 💌 Romantic Steps - Hinglish quotes and poems (5-6 steps)
             STEPS: [
                 {
@@ -612,7 +605,7 @@
                     text: "First time we met, 27th nov it was! You came after couple of hours of waiting but yk what made me wait!?...\nthe beatuiful memory that should be kept that waits ahead everything 💭✨"
                 },
                 {
-                    text: "Sweetie, You're not just my gf...\nTu meri best friend, mera everything hai, bevause you are the only one jisko mai sab batata hu 👫💖"
+                    text: "Sweetie, You're not just my gf...\nTu meri best friend, mera everything hai, bevause you are the only one jisko mai sab batata hu 💫💖"
                 },
                 {
                     text: "Main tujhse kitna pyaar karta hun...\nYe words mein express nahi kar sakta, sweetie 💕🌟"
@@ -636,19 +629,17 @@
             FINAL_QUOTE: "Sweetie, jab tu 'Yes' kehti hai, duniya ki saari khushiyaan mere paas aa jaati hain. \n Wishing you a very happy and amazing year ahead, Happy Birthday my love!💖✨\n\nTu meri life ka sabse beautiful part hai... I love you so much! 🌟💕"
         };
 
-        // ═══════════════════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════════════════════════════════════
         // 🚀 MAIN APPLICATION CODE
-        // ═══════════════════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════════════════════════════════════
 
         let currentStep = 0;
         let noClickCount = 0;
         let typewriterActive = false;
-        let youtubePlayer = null;
 
         // Initialize the application
         function init() {
             createBokehLights();
-            setupYouTubePlayer();
             setupKeyboardShortcuts();
             generateSteps();
             
@@ -694,32 +685,6 @@
             }
         }
 
-        // Setup YouTube Player (Web API)
-        function setupYouTubePlayer() {
-            // Extract video ID from URL
-            const videoId = extractYouTubeID(CONFIG.SONG_URL);
-            
-            // Create iframe for YouTube player
-            const playerContainer = document.getElementById('youtube-player');
-            playerContainer.innerHTML = `
-                <iframe id="youtube-iframe" 
-                        width="1" 
-                        height="1" 
-                        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1" 
-                        frameborder="0" 
-                        allow="autoplay; encrypted-media"
-                        style="opacity: 0; position: absolute; top: -1000px;">
-                </iframe>
-            `;
-        }
-
-        // Extract YouTube Video ID from URL
-        function extractYouTubeID(url) {
-            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[7].length === 11) ? match[7] : null;
-        }
-
         // Generate steps dynamically
         function generateSteps() {
             const stepsContainer = document.getElementById('steps-container');
@@ -749,29 +714,11 @@
             document.getElementById('cover-page').style.display = 'none';
             document.getElementById('steps-container').style.display = 'block';
             
-            // Start music (user interaction allows autoplay)
-            playBackgroundMusic();
-            
             // Show first step
             showStep(0);
             
             // Create celebration effect
             createFloatingHeart({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
-        }
-
-        // Play background music
-        function playBackgroundMusic() {
-            try {
-                const iframe = document.getElementById('youtube-iframe');
-                if (iframe) {
-                    iframe.style.opacity = '0';
-                    iframe.style.position = 'absolute';
-                    iframe.style.top = '-1000px';
-                    iframe.style.left = '-1000px';
-                }
-            } catch (error) {
-                console.log('Music playback requires user interaction');
-            }
         }
 
         // Show specific step with typewriter effect
@@ -1176,10 +1123,8 @@
             if (isSlowDevice) {
                 document.documentElement.style.setProperty('--transition', 'all 0.2s ease');
                 
-                // Reduce confetti count
-                const originalCreateConfetti = createConfetti;
-                createConfetti = function() {
-                    // Reduce confetti pieces for slower devices
+                // Reduce confetti count for slower devices
+                window.createConfetti = function() {
                     const canvas = document.getElementById('confetti-canvas');
                     const ctx = canvas.getContext('2d');
                     
@@ -1397,9 +1342,9 @@
     </script>
 
     <!-- 
-    ═══════════════════════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════════════════════════════════════
     💖 ROMANTIC SURPRISE WEBSITE - DEVELOPER NOTES
-    ═══════════════════════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════════════════════════════════════
     
     🎯 FEATURES INCLUDED:
     ✅ Dreamy animated background with moving gradients
@@ -1409,7 +1354,6 @@
     ✅ Interactive "Do you love me?" game
     ✅ Dodging "No" button with 9 flirty reactions
     ✅ Massive celebration on "Yes" with confetti
-    ✅ YouTube music integration (autoplay after user interaction)
     ✅ Floating hearts on every click
     ✅ Secret message with "K" key
     ✅ Mobile responsive design
@@ -1422,15 +1366,8 @@
     • Change STEPS array for different poems/quotes
     • Modify NO_QUOTES for different reactions
     • Update FINAL_QUOTE for ending message  
-    • Change SONG_URL to different YouTube link
     • Adjust CSS variables for different colors
     • Modify animation timings and effects
-    
-    🎵 MUSIC INTEGRATION:
-    • Uses YouTube embed with autoplay
-    • Starts after user clicks "Start" button
-    • Loops continuously in background
-    • Hidden iframe player
     
     ⌨️ KEYBOARD SHORTCUTS:
     • K - Show secret message
